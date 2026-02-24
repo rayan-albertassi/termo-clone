@@ -1,0 +1,5 @@
+{
+  "name": "Termo Clone",
+  "description": "Um clone do jogo Termo com modos Dueto e Quarteto.",
+  "requestFramePermissions": []
+}
