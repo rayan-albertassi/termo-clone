@@ -55,30 +55,41 @@ export function Keyboard({ onKeyPress, keyStatuses, numBoards }: KeyboardProps) 
   return (
     <div className="flex flex-col gap-2 w-full max-w-2xl mx-auto p-2">
       {ROWS.map((row, i) => (
-        <div key={i} className="flex justify-center gap-1 sm:gap-2">
+        <div key={i} className="flex justify-center gap-1 sm:gap-2 w-full">
+          {i === 1 && <div style={{ flex: 0.5 }}></div>}
+          {i === 2 && <div style={{ flex: 1 }}></div>}
           {row.map((key) => {
             const isSpecial = key === 'enter' || key === 'backspace';
             const statuses = keyStatuses[key] || Array(numBoards).fill('empty');
             const isFullyAbsent = statuses.every(s => s === 'absent');
             
+            let flexValue = 1;
+            if (key === 'backspace') flexValue = 1.5;
+            if (key === 'enter') flexValue = 3;
+
             return (
               <button
                 key={key}
+                translate="no"
                 onClick={() => onKeyPress(key)}
                 className={`
-                  flex items-center justify-center rounded font-bold text-sm sm:text-base uppercase
-                  transition-transform active:scale-95 select-none
-                  ${isSpecial ? 'px-2 sm:px-4 py-4 bg-[#4c4347] text-[#fafafa]' : 'flex-1 py-4'}
+                  flex items-center justify-center rounded font-bold text-xs sm:text-base uppercase
+                  transition-transform active:scale-95 select-none py-4
+                  ${isSpecial ? 'bg-[#4c4347] text-[#fafafa]' : ''}
                 `}
-                style={!isSpecial ? { 
-                  background: getKeyBackground(key),
-                  color: isFullyAbsent ? '#6e5c62' : '#fafafa'
-                } : {}}
+                style={{
+                  flex: flexValue,
+                  ...(!isSpecial ? { 
+                    background: getKeyBackground(key),
+                    color: isFullyAbsent ? '#6e5c62' : '#fafafa'
+                  } : {})
+                }}
               >
                 {key === 'backspace' ? <Delete size={20} /> : key === 'enter' ? 'ENTER' : key}
               </button>
             );
           })}
+          {i === 0 && <div style={{ flex: 1 }}></div>}
         </div>
       ))}
     </div>

@@ -93,29 +93,39 @@ export default function App() {
         setGameStatus('lost');
       }
     } else if (key === 'backspace') {
-      setCurrentGuess(prev => {
-        const newGuess = [...prev];
-        if (newGuess[activeCellIndex] !== '') {
+      if (activeCellIndex === 5) {
+        setCurrentGuess(prev => {
+          const newGuess = [...prev];
+          newGuess[4] = '';
+          return newGuess;
+        });
+        setActiveCellIndex(4);
+      } else if (currentGuess[activeCellIndex] !== '') {
+        setCurrentGuess(prev => {
+          const newGuess = [...prev];
           newGuess[activeCellIndex] = '';
-        } else if (activeCellIndex > 0) {
+          return newGuess;
+        });
+      } else if (activeCellIndex > 0) {
+        setCurrentGuess(prev => {
+          const newGuess = [...prev];
           newGuess[activeCellIndex - 1] = '';
-          setActiveCellIndex(activeCellIndex - 1);
-        }
-        return newGuess;
-      });
+          return newGuess;
+        });
+        setActiveCellIndex(activeCellIndex - 1);
+      }
     } else if (/^[a-z]$/.test(key)) {
+      if (activeCellIndex >= 5) return;
       setCurrentGuess(prev => {
         const newGuess = [...prev];
         newGuess[activeCellIndex] = key;
         return newGuess;
       });
-      if (activeCellIndex < 4) {
-        setActiveCellIndex(activeCellIndex + 1);
-      }
+      setActiveCellIndex(activeCellIndex + 1);
     } else if (key === 'ArrowLeft') {
       if (activeCellIndex > 0) setActiveCellIndex(activeCellIndex - 1);
     } else if (key === 'ArrowRight') {
-      if (activeCellIndex < 4) setActiveCellIndex(activeCellIndex + 1);
+      if (activeCellIndex < 5) setActiveCellIndex(activeCellIndex + 1);
     }
   }, [currentGuess, activeCellIndex, gameStatus, guesses, maxGuesses, targets]);
 

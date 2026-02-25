@@ -20,7 +20,7 @@ export function Board({ target, guesses, currentGuess, activeCellIndex, onCellCl
   const emptyRows = Array.from({ length: Math.max(0, emptyRowsCount) });
 
   return (
-    <div className="flex flex-col gap-1.5 p-2 bg-[#110d0e] rounded-lg">
+    <div translate="no" className="flex flex-col gap-1.5 p-2 bg-[#110d0e] rounded-lg">
       {guesses.map((guess, i) => (
         <CompletedRow key={i} guess={guess} target={target} />
       ))}
