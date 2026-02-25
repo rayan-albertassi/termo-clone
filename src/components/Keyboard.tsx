@@ -74,7 +74,7 @@ export function Keyboard({ onKeyPress, keyStatuses, numBoards }: KeyboardProps) 
                 onClick={() => onKeyPress(key)}
                 className={`
                   flex items-center justify-center rounded font-bold text-xs sm:text-base uppercase
-                  transition-transform active:scale-95 select-none py-4
+                  transition-transform active:scale-95 select-none py-3 sm:py-4
                   ${isSpecial ? 'bg-[#4c4347] text-[#fafafa]' : ''}
                 `}
                 style={{

@@ -219,11 +219,11 @@ export default function App() {
         </div>
       )}
 
-      <main className="flex-1 w-full max-w-4xl flex flex-col items-center justify-center p-4 gap-8">
-        <div className={`grid gap-4 sm:gap-8 ${
-          mode === 'termo' ? 'grid-cols-1' : 
-          mode === 'dueto' ? 'grid-cols-1 sm:grid-cols-2' : 
-          'grid-cols-2'
+      <main className="flex-1 w-full max-w-6xl flex flex-col items-center justify-center p-2 sm:p-4 gap-4 sm:gap-8">
+        <div className={`grid gap-2 sm:gap-4 w-full justify-center ${
+          mode === 'termo' ? 'grid-cols-1 max-w-[320px] sm:max-w-[400px]' : 
+          mode === 'dueto' ? 'grid-cols-2 max-w-[640px] sm:max-w-[800px]' : 
+          'grid-cols-2 md:grid-cols-4 max-w-[640px] md:max-w-[1200px]'
         }`}>
           {targets.map((target, i) => {
             const winIndex = guesses.indexOf(target);
@@ -232,17 +232,22 @@ export default function App() {
             const isActive = !isWon && gameStatus === 'playing';
 
             return (
-              <Board
-                key={i}
-                target={target}
-                guesses={boardGuesses}
-                currentGuess={isActive ? currentGuess : Array(5).fill('')}
-                activeCellIndex={isActive ? activeCellIndex : -1}
-                onCellClick={(index) => isActive && setActiveCellIndex(index)}
-                maxGuesses={maxGuesses}
-                isWon={isWon}
-                isActive={isActive}
-              />
+              <div key={i} className={`w-full mx-auto ${
+                mode === 'termo' ? 'max-w-[60vh] sm:max-w-[320px]' :
+                mode === 'dueto' ? 'max-w-[35vh] sm:max-w-[280px]' :
+                'max-w-[22vh] sm:max-w-[240px]'
+              }`}>
+                <Board
+                  target={target}
+                  guesses={boardGuesses}
+                  currentGuess={isActive ? currentGuess : Array(5).fill('')}
+                  activeCellIndex={isActive ? activeCellIndex : -1}
+                  onCellClick={(index) => isActive && setActiveCellIndex(index)}
+                  maxGuesses={maxGuesses}
+                  isWon={isWon}
+                  isActive={isActive}
+                />
+              </div>
             );
           })}
         </div>
